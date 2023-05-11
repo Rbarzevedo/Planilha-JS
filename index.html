@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução JS</title>
+    <style>
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: black;
+    }
+
+    h1{
+        color: white;
+    }
+
+    .box {
+        width: 890px;
+        height: 360px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background-color: #d0a77f;
+    }
+
+    table {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border-collapse: collapse;
+    }
+
+    th {
+        border: 3px solid black;
+        padding: 0px;
+    }
+
+    td {
+        border: 3px solid black;
+        padding: 0px;
+    }
+
+    button {
+        margin-top: 15px;
+    }
+    </style>
+</head>
+<body>
+    <h1>Planilha de Notas</h1>
+<div class="box">
+    <table>
+        <thead>
+            <th>Matrícula</th>
+            <th>Nome</th>
+            <th>Qt. Faltas</th>
+            <th>Nota_B1</th>
+            <th>Nota_B2</th>
+            <th>Média</th>
+            <th>Nota_PR</th>
+            <th>Media final</th>
+            <th>Situação</th>
+        </thead>
+        <tbody>
+            <td>202305621</td>
+            <td>Rafael Azevedo</td>
+            <td>4</td>
+            <td>7,4</td>
+            <td>8,5</td>
+            <td>7,9</td>
+            <td>---</td>
+            <td>---</td>
+            <td>Aprovado(a)</td>
+        </tbody>
+    </table>
+    <button onclick="Questionário()"> Inserir aluno </button>
+</div>
+
+
+
+<script>
+    function Questionário() {
+
+var maxdigits = 9;
+var Matrícula = prompt('Digite sua Matrícula');
+while ((Matrícula.length !== maxdigits) || isNaN(Matrícula)) {
+    if (isNaN(Matrícula)){
+  alert("Sua matrícula só possui numeros, man");}
+  else{
+    alert("Insira um número de Matrícula valido. Ele contem exatamente 9 caracteres. Você digitou " + Matrícula.length);
+  }
+  Matrícula = prompt('Tenta de novo, você consegue. Lembre-se, são 9 NUMEROS.');
+}
+
+var Nome = prompt('Digite seu Nome');
+while (/\d/.test(Nome)) {
+  alert("Duvido muito que haja numeros no seu nome.");
+  Nome = prompt('Digite seu nome novamente, sem numeros dessa vez');
+}
+
+var QtFaltas = parseInt(prompt('Digite sua quantidade de faltas'));
+while (isNaN(QtFaltas)) {
+  alert("Em numeros, por favor");
+  QtFaltas = parseInt(prompt('Digite sua quantidade de faltas em numero, não por extenso'));
+}
+
+var Nota_B1 = parseFloat(prompt('Insira sua nota do B1'));
+while (isNaN(Nota_B1)){
+    alert("Escreva em numeros, por favor")
+    Nota_B1 = parseFloat(prompt('Insira sua nota do B1 em numeros'));}
+while (Nota_B1 > 10) {
+  alert("Não, você não tirou mais de 10");
+  Nota_B1 = parseFloat(prompt('Seja honesto dessa vez'));
+}
+
+var Nota_B2 = parseFloat(prompt('Insira sua nota do B2'));
+while (isNaN(Nota_B2)){
+    alert("Escreva em numeros, por favor")
+    Nota_B2 = parseFloat(prompt('Insira sua nota do B2 em numeros'));}
+while (Nota_B2 > 10) {
+  alert("Não, você não tirou mais de 10");
+  Nota_B2 = parseFloat(prompt('Seja honesto dessa vez'));
+}
+
+var Média = Nota_B1 + Nota_B2;
+var Média2 = Média / 2;
+
+if (QtFaltas > 5) {
+  alert("Você foi reprovado(a) por faltas excessivas");
+} else {
+
+  if (Média2 >= 7) {
+    alert("Você foi aprovado(a) nessa disciplina");
+    var tabela = document.querySelector(".box > table");
+    var linha = tabela.insertRow(-1);
+
+    linha.insertCell(0).innerText = Matrícula;
+    linha.insertCell(1).innerText = Nome;
+    linha.insertCell(2).innerText = QtFaltas;
+    linha.insertCell(3).innerText = Nota_B1;
+    linha.insertCell(4).innerText = Nota_B2;
+    linha.insertCell(5).innerText = Média2;
+    linha.insertCell(6).innerText = "---";
+    linha.insertCell(7).innerText = "---";
+    linha.insertCell(8).innerText = "Aprovado(a)";
+  } else {
+    alert("Você ficou de recuperação nessa disciplina");
+    var PR = parseFloat(prompt('Digite sua nota da Prova de Recuperação'));
+    while (isNaN(PR)) {
+      alert("Não, escreva em numeros, por favor");
+      PR = parseFloat(prompt('Digite sua nota da Prova de Recuperação novamente'));
+    }
+    while (PR > 10) {
+      alert("Talvez você não teria ficado de recuperação se você fosse mais honesto");
+      PR = parseFloat(prompt('Digite sua nota da Prova de Recuperação, de preferencia a nota verdadeira'));
+    }
+    Média3 = Média2 / 2;
+    var PR2 = PR / 2;
+    MF = Média3 + PR2;
+    if (MF >= 5) {
+      alert("Você foi aprovado(a) nessa disciplina, se safou por pouco dessa vez");
+            } else {
+              alert("Você foi reprovado(a) nessa disciplina, damn bro...");
+            }
+            var tabela = document.querySelector(".box > table");
+            var linha = tabela.insertRow(-1);
+    
+          linha.insertCell(0).innerText = Matrícula;
+          linha.insertCell(1).innerText = Nome;
+          linha.insertCell(2).innerText = QtFaltas;
+          linha.insertCell(3).innerText = Nota_B1;
+          linha.insertCell(4).innerText = Nota_B2;
+          linha.insertCell(5).innerText = Média2;
+          linha.insertCell(6).innerText = PR;
+          linha.insertCell(7).innerText = MF;
+          if(MF >= 5){
+            linha.insertCell(8).innerText = "Aprovado(a)";
+          }
+          else{
+            linha.insertCell(8).innerText = "Reprovado(a)";
+          }
+}}}
+    </script>
+</body>
+</html>
